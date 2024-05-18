@@ -2,6 +2,8 @@
 
 #include <QDialog>
 #include "ui_formDialog.h"
+#include "Album.h"
+
 
 class formDialog : public QDialog
 {
@@ -10,6 +12,9 @@ class formDialog : public QDialog
 public:
 	formDialog(QWidget *parent = nullptr);
 	~formDialog();
+
+signals:
+	void dataSubmitted(const Album& album);
 
 private:
 	Ui::formDialogClass ui;

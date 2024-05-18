@@ -17,63 +17,18 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Autor</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+      <widget class="QSpinBox" name="spinBox"/>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>status</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox">
-       <item>
-        <property name="text">
-         <string>Do przesłuchania</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>W trakcie słuchania</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Przesłuchane</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QHBoxLayout" name="horizontalLayout_3"/>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Nazwa</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTextEdit" name="textEdit"/>
-     </item>
-    </layout>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="finalizeAddAlbumButton">
      <property name="text">
       <string>Dodaj ;)</string>
      </property>
@@ -85,7 +40,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>finalizeAddAlbumButton</sender>
    <signal>clicked()</signal>
    <receiver>formDialogClass</receiver>
    <slot>addAlbumToTable()</slot>

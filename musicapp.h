@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_musicapp.h"
+#include "Album.h"
+#include "formDialog.h"
 
 class musicapp : public QMainWindow
 {
@@ -13,7 +15,10 @@ public:
 
 private:
     Ui::musicappClass ui;
+    formDialog* dialog;
 
     private slots:
     void openAlbumForm();
+    void handleDialogData(const Album& album);
+   
 };

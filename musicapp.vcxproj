@@ -96,12 +96,16 @@
     <QtUic Include="formDialog.ui" />
     <QtUic Include="musicapp.ui" />
     <QtMoc Include="musicapp.h" />
+    <ClCompile Include="Album.cpp" />
     <ClCompile Include="formDialog.cpp" />
     <ClCompile Include="musicapp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="formDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Album.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
