@@ -13,4 +13,7 @@ public:
 
 private:
     Ui::musicappClass ui;
+
+    private slots:
+    void openAlbumForm();
 };

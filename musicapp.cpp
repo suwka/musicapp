@@ -1,4 +1,5 @@
 #include "musicapp.h"
+#include <formDialog.h>
 
 musicapp::musicapp(QWidget *parent)
     : QMainWindow(parent)
@@ -8,3 +9,9 @@ musicapp::musicapp(QWidget *parent)
 
 musicapp::~musicapp()
 {}
+
+void musicapp::openAlbumForm()
+{
+    formDialog test;
+    test.exec();
+}
