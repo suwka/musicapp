@@ -14,7 +14,10 @@ public:
 
 	Album(string title, string artist, int num, vector<string> songs);
 	Album(int num);
+	Album(string title);
+	Album(vector<string> songs);
 	int getNumberOfTracks();
+	string getAlbumTitle();
 
 };
 

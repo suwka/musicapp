@@ -16,11 +16,12 @@ public:
 private:
     Ui::musicappClass ui;
     formDialog* dialog;
-    QList<Album> albumList;
+    vector<Album> albumList;
+   // QList<Album> listView;
 
 private slots:
     void openAlbumForm();
     void handleDialogData(const Album& album);
-    void loadDataFromFile();
+    //void loadDataFromFile();
 };
 

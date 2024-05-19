@@ -8,7 +8,7 @@ musicapp::musicapp(QWidget* parent)
 {
     ui.setupUi(this);
     connect(dialog, &formDialog::dataSubmitted, this, &musicapp::handleDialogData);
-    connect(ui.importAlbumButton, &QPushButton::clicked, this, &musicapp::loadDataFromFile); // Poprawiono po³¹czenie sygna³u i slotu
+    //connect(ui.importAlbumButton, &QPushButton::clicked, this, &musicapp::loadDataFromFile); // Poprawiono po³¹czenie sygna³u i slotu
 }
 
 musicapp::~musicapp()
@@ -16,7 +16,10 @@ musicapp::~musicapp()
 
 void musicapp::handleDialogData(const Album& album)
 {
-    ui.testLabel->setText(QString::number(album.numberOfTracks));
+    albumList.push_back(album);
+    ui.albumListComboBox->addItem(QString::fromStdString(album.albumTitle));
+    ui.testLabel->setText(QString::fromStdString(albumList[0].albumArtist));
+//    ui.testLabel->setText(QString::fromStdString(album.albumTitle));
 }
 
 void musicapp::openAlbumForm()
@@ -24,24 +27,24 @@ void musicapp::openAlbumForm()
     dialog->show();
 }
 
-void musicapp::loadDataFromFile()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Text Files (*.txt)"));
-    if (fileName.isEmpty())
-        return;
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
-        return;
-    }
-
-    QTextStream in(&file);
-    QStringList dataList;
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        dataList << line;
-    }
-    file.close();
-    QStringListModel* model = new QStringListModel(dataList, this);
-    ui.listView->setModel(model);
-}
+//void musicapp::loadDataFromFile()
+//{
+//    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Text Files (*.txt)"));
+//    if (fileName.isEmpty())
+//        return;
+//
+//    QFile file(fileName);
+//    if (!file.open(QIODevice::ReadOnly)) {
+//        return;
+//    }
+//
+//    QTextStream in(&file);
+//    QStringList dataList;
+//    while (!in.atEnd()) {
+//        QString line = in.readLine();
+//        dataList << line;
+//    }
+//    file.close();
+//    QStringListModel* model = new QStringListModel(dataList, this);
+//    ui.listView->setModel(model);
+//}

@@ -101,14 +101,75 @@
          <number>10</number>
         </property>
         <item>
-         <widget class="QTableView" name="albumTable">
-          <property name="enabled">
-           <bool>true</bool>
+         <widget class="QComboBox" name="albumListComboBox"/>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="albumProgressBar">
+          <property name="value">
+           <number>24</number>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QListView" name="listView"/>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Autor</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="albumArtistLabel">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Liczba piosenek</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="numberOfSongsLabel">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Status</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="albumStatusLabel">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableView" name="albumSongTable">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
