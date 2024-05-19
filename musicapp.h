@@ -17,11 +17,11 @@ private:
     Ui::musicappClass ui;
     formDialog* dialog;
     vector<Album> albumList;
-   // QList<Album> listView;
 
 private slots:
     void openAlbumForm();
     void handleDialogData(const Album& album);
-    //void loadDataFromFile();
+    void updateAlbumArtistLabel(int index);
+    void updateAlbumProgressBar();
 };
 

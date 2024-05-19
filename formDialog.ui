@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
-    <height>461</height>
+    <width>492</width>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,6 +63,13 @@
       <widget class="QSpinBox" name="numberOfTitlesInput"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="importAlbumButton">
+     <property name="text">
+      <string>meow button</string>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">

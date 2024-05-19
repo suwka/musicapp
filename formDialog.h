@@ -18,7 +18,9 @@ signals:
 
 private:
 	Ui::formDialogClass ui;
+	QList<Album> listView;
 
-	private slots:
+private slots:
 	void addAlbumToTable();
+	void loadDataFromFile();
 };
