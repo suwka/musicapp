@@ -1,4 +1,5 @@
 #include "Album.h"
+#include <QString>
 
 Album::Album(int num) {
 	this->numberOfTracks = num;
@@ -6,5 +7,4 @@ Album::Album(int num) {
 int Album::getNumberOfTracks() {
 	return this->numberOfTracks;
 }
-
 

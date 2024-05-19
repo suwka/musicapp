@@ -1,10 +1,12 @@
 #include "formDialog.h"
 #include "Album.h"
 
+
 formDialog::formDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+
 }
 
 formDialog::~formDialog()
@@ -15,3 +17,4 @@ void formDialog::addAlbumToTable() {
 	emit dataSubmitted(album);
 	this->close();
 }
+

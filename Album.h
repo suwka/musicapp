@@ -6,5 +6,6 @@ public:
 
 	Album(int num);
 	int getNumberOfTracks();
+
 };
 

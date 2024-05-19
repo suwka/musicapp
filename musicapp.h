@@ -10,15 +10,17 @@ class musicapp : public QMainWindow
     Q_OBJECT
 
 public:
-    musicapp(QWidget *parent = nullptr);
+    musicapp(QWidget* parent = nullptr);
     ~musicapp();
 
 private:
     Ui::musicappClass ui;
     formDialog* dialog;
+    QList<Album> albumList;
 
-    private slots:
+private slots:
     void openAlbumForm();
     void handleDialogData(const Album& album);
-   
+    void loadDataFromFile();
 };
+
