@@ -10,7 +10,6 @@ formDialog::formDialog(QWidget* parent)
 {
     ui.setupUi(this);
     connect(ui.importAlbumButton, &QPushButton::clicked, this, &formDialog::loadDataFromFile);
-
 }
 
 formDialog::~formDialog()
@@ -41,7 +40,7 @@ void formDialog::addAlbumToTable() {
         numberOfTitles++;
     }
 
-    Album album((ui.albumTitleInput->text()).toStdString(), (ui.albumArtistInsput->text()).toStdString(), numberOfTitles, songList);
+    Album album((ui.albumTitleInput->text()).toStdString(), (ui.albumArtistInsput->text()).toStdString(), songList);
     emit dataSubmitted(album);
     this->close();
 }

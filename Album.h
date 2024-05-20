@@ -5,19 +5,15 @@ using namespace std;
 
 class Album
 {
-public:
-	int numberOfTracks;
 	string albumTitle;
 	string albumArtist;
 	vector<string> songList;
-	
 
-	Album(string title, string artist, int num, vector<string> songs);
-	Album(int num);
-	Album(string title);
-	Album(vector<string> songs);
-	int getNumberOfTracks();
-	string getAlbumTitle();
+public:
+	Album(string title, string artist, vector<string> songs);
+	string getAlbumTitle() const;
+	string getAlbumArtist() const;
+	vector<string> getSongList() const;
 
 };
 

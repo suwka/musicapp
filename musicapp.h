@@ -21,7 +21,7 @@ private:
 private slots:
     void openAlbumForm();
     void handleDialogData(const Album& album);
-    void updateAlbumArtistLabel(int index);
+    void displayAlbumInfo(int index);
     void updateAlbumProgressBar();
 };
 

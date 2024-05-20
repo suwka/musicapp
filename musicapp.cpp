@@ -9,8 +9,10 @@ musicapp::musicapp(QWidget* parent)
 {
     ui.setupUi(this);
     connect(dialog, &formDialog::dataSubmitted, this, &musicapp::handleDialogData);
-    connect(ui.albumListComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &musicapp::updateAlbumArtistLabel);
+    connect(ui.albumListComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &musicapp::displayAlbumInfo);
     connect(ui.albumSongTable->model(), &QAbstractItemModel::dataChanged, this, &musicapp::updateAlbumProgressBar);
+    ui.albumSongTable->horizontalHeader()->setStretchLastSection(true);
+    ui.albumSongTable->horizontalHeader()->sectionResizeMode(QHeaderView::Stretch);
 
 }
 
@@ -20,10 +22,7 @@ musicapp::~musicapp()
 void musicapp::handleDialogData(const Album& album)
 {
     albumList.push_back(album);
-    ui.albumListComboBox->addItem(QString::fromStdString(album.albumTitle));
-    //ui.testLabel->setText(QString::fromStdString(albumList[0].albumArtist));
-    //ui.testLabel->setText(QString::fromStdString(album.albumTitle));
-    ui.testLabel->setText(QString::fromStdString(album.songList[0]));
+    ui.albumListComboBox->addItem(QString::fromStdString(album.getAlbumTitle()));
 }
 
 
@@ -32,11 +31,11 @@ void musicapp::openAlbumForm()
     dialog->show();
 }
 
-void musicapp::updateAlbumArtistLabel(int index)
+void musicapp::displayAlbumInfo(int index)
 {
     if (index >= 0 && index < albumList.size()) {
-        const std::string& albumArtist = albumList[index].albumArtist;
-        const std::vector<std::string>& songList = albumList[index].songList;
+        const std::string& albumArtist = albumList[index].getAlbumArtist();
+        const std::vector<std::string>& songList = albumList[index].getSongList();
         const int numberOfTracks = songList.size();
 
         ui.albumArtistLabel->setText(QString::fromStdString(albumArtist));
