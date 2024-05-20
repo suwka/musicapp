@@ -10,7 +10,8 @@ class Song
 
 public:
 	Song(string title, bool listened = 0);
-	string getSongTitle();
-	bool getListened();
+	string getSongTitle() const;
+	bool getListened() const;
+	void setListened(bool listened);
 };
 

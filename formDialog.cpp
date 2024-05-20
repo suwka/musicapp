@@ -16,7 +16,7 @@ formDialog::~formDialog()
 {}
 
 void formDialog::addAlbumToTable() {
-    vector<string> songList;
+    vector<Song> songList;
 
     QString tekst = ui.textEdit->toPlainText();
     string tekstStd = tekst.toStdString();
@@ -26,7 +26,7 @@ void formDialog::addAlbumToTable() {
     for (char znak : tekstStd) {
         if (znak == '\n') {
             if (!slowo.empty()) {
-                songList.push_back(slowo);
+                songList.push_back(Song(slowo));
                 slowo.clear();
                 numberOfTitles++;
             }
@@ -36,7 +36,7 @@ void formDialog::addAlbumToTable() {
         }
     }
     if (!slowo.empty()) {
-        songList.push_back(slowo);
+        songList.push_back(Song(slowo));
         numberOfTitles++;
     }
 

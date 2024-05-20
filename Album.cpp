@@ -1,6 +1,6 @@
 #include "Album.h"
 
-Album::Album(string title, string artist, vector<string> songs) {
+Album::Album(string title, string artist, vector<Song> songs) {
 	this->albumTitle = title;
 	this->albumArtist = artist;
 	this->songList = songs;
@@ -13,7 +13,7 @@ string Album::getAlbumArtist() const{
 	return this->albumArtist;
 }
 
-vector<string> Album::getSongList() const{
+vector<Song> Album::getSongList() const{
 	return this->songList;
 }
 

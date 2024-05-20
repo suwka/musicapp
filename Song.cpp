@@ -6,13 +6,17 @@ Song::Song(string title, bool listened)
 	this->listened = listened;
 }
 
-string Song::getSongTitle()
+string Song::getSongTitle() const
 {
 	return this->songTitle;
 }
 
-bool Song::getListened()
+bool Song::getListened() const
 {
 	return this->listened;
+}
+
+void Song::setListened(bool listened) {
+	this->listened = listened;
 }
 

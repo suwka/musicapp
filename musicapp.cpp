@@ -2,6 +2,7 @@
 #include <formDialog.h>
 #include <QStringListModel>
 #include <QStandardItem>
+#include <Album.h>
 
 
 musicapp::musicapp(QWidget* parent)
@@ -35,7 +36,7 @@ void musicapp::displayAlbumInfo(int index)
 {
     if (index >= 0 && index < albumList.size()) {
         const std::string& albumArtist = albumList[index].getAlbumArtist();
-        const std::vector<std::string>& songList = albumList[index].getSongList();
+        const std::vector<Song>& songList = albumList[index].getSongList();
         const int numberOfTracks = songList.size();
 
         ui.albumArtistLabel->setText(QString::fromStdString(albumArtist));
@@ -43,10 +44,10 @@ void musicapp::displayAlbumInfo(int index)
 
         QStandardItemModel* model = new QStandardItemModel(this);
 
-        for (const std::string& song : songList) {
-            QStandardItem* item = new QStandardItem(QString::fromStdString(song));
+        for (const Song& song : songList) {
+            QStandardItem* item = new QStandardItem(QString::fromStdString(song.getSongTitle()));
             item->setCheckable(true);
-            item->setCheckState(Qt::Unchecked);
+            item->setCheckState(song.getListened() ? Qt::Checked : Qt::Unchecked);
             model->appendRow(item);
         }
 
