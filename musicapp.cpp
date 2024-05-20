@@ -14,13 +14,12 @@ musicapp::musicapp(QWidget* parent)
     connect(ui.albumSongTable->model(), &QAbstractItemModel::dataChanged, this, &musicapp::updateAlbumProgressBar);
     ui.albumSongTable->horizontalHeader()->setStretchLastSection(true);
     ui.albumSongTable->horizontalHeader()->sectionResizeMode(QHeaderView::Stretch);
-
 }
 
 musicapp::~musicapp()
 {}
 
-void musicapp::handleDialogData(const Album& album)
+void musicapp::handleDialogData(Album album)
 {
     albumList.push_back(album);
     ui.albumListComboBox->addItem(QString::fromStdString(album.getAlbumTitle()));
@@ -34,13 +33,16 @@ void musicapp::openAlbumForm()
 
 void musicapp::displayAlbumInfo(int index)
 {
+    currentIndex = index;
     if (index >= 0 && index < albumList.size()) {
-        const std::string& albumArtist = albumList[index].getAlbumArtist();
-        const std::vector<Song>& songList = albumList[index].getSongList();
+        string albumArtist = albumList[index].getAlbumArtist();
+        vector<Song> songList = albumList[index].getSongList();
         const int numberOfTracks = songList.size();
+        const int albumStatus = albumList[index].getAlbumStatus();
 
         ui.albumArtistLabel->setText(QString::fromStdString(albumArtist));
         ui.numberOfSongsLabel->setText(QString::number(numberOfTracks));
+        ui.albumProgressBar->setValue(albumStatus);
 
         QStandardItemModel* model = new QStandardItemModel(this);
 
@@ -60,13 +62,18 @@ void musicapp::updateAlbumProgressBar()
 {
     int checkedCount = 0;
     int totalRows = ui.albumSongTable->model()->rowCount();
+    vector<Song>& songList = albumList[currentIndex].getSongList();
+
     for (int row = 0; row < totalRows; ++row) {
         QModelIndex index = ui.albumSongTable->model()->index(row, 0);
         if (index.isValid()) {
             QVariant data = ui.albumSongTable->model()->data(index, Qt::CheckStateRole);
             if (data == Qt::Checked) {
+                songList[row].setListened(1);
                 ++checkedCount;
             }
+            else
+                songList[row].setListened(0);
         }
     }
     int progress = 0;
@@ -74,5 +81,6 @@ void musicapp::updateAlbumProgressBar()
         progress = (checkedCount * 100) / totalRows;
     }
     ui.albumProgressBar->setValue(progress);
+    albumList[currentIndex].setAlbumStatus(ui.albumProgressBar->value());
 }
 

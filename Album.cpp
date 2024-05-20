@@ -1,6 +1,6 @@
 #include "Album.h"
 
-Album::Album(string title, string artist, vector<Song> songs) {
+Album::Album(string title, string artist, vector<Song> songs, int status) {
 	this->albumTitle = title;
 	this->albumArtist = artist;
 	this->songList = songs;
@@ -13,8 +13,18 @@ string Album::getAlbumArtist() const{
 	return this->albumArtist;
 }
 
-vector<Song> Album::getSongList() const{
+int Album::getAlbumStatus() const
+{
+	return this->albumStatus;
+}
+
+vector<Song>& Album::getSongList(){
 	return this->songList;
+}
+
+void Album::setAlbumStatus(int status)
+{
+	this->albumStatus = status;
 }
 
 

@@ -17,10 +17,11 @@ private:
     Ui::musicappClass ui;
     formDialog* dialog;
     vector<Album> albumList;
+    int currentIndex = 0;
 
 private slots:
     void openAlbumForm();
-    void handleDialogData(const Album& album);
+    void handleDialogData(Album album);
     void displayAlbumInfo(int index);
     void updateAlbumProgressBar();
 };

@@ -9,12 +9,15 @@ class Album
 	string albumTitle;
 	string albumArtist;
 	vector<Song> songList;
+	int albumStatus;
 
 public:
-	Album(string title, string artist, vector<Song> songs);
+	Album(string title, string artist, vector<Song> songs, int status = 0);
 	string getAlbumTitle() const;
 	string getAlbumArtist() const;
-	vector<Song> getSongList() const;
+	int getAlbumStatus() const;
+	vector<Song>& getSongList();
+	void setAlbumStatus(int status);
 
 };
 

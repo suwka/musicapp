@@ -21,14 +21,12 @@ void formDialog::addAlbumToTable() {
     QString tekst = ui.textEdit->toPlainText();
     string tekstStd = tekst.toStdString();
     string slowo;
-    int numberOfTitles = 0;
 
     for (char znak : tekstStd) {
         if (znak == '\n') {
             if (!slowo.empty()) {
-                songList.push_back(Song(slowo));
+                songList.push_back(Song(slowo, 0));
                 slowo.clear();
-                numberOfTitles++;
             }
         }
         else {
@@ -36,8 +34,7 @@ void formDialog::addAlbumToTable() {
         }
     }
     if (!slowo.empty()) {
-        songList.push_back(Song(slowo));
-        numberOfTitles++;
+        songList.push_back(Song(slowo, 0));
     }
 
     Album album((ui.albumTitleInput->text()).toStdString(), (ui.albumArtistInsput->text()).toStdString(), songList);
