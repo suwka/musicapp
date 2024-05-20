@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QStringListModel>
 #include <QString>
+#include <QMessageBox>
 
 
 formDialog::formDialog(QWidget* parent)
@@ -15,43 +16,58 @@ formDialog::formDialog(QWidget* parent)
 formDialog::~formDialog()
 {}
 
-void formDialog::addAlbumToTable() {
-    vector<Song> songList;
-
-    QString tekst = ui.textEdit->toPlainText();
-    string tekstStd = tekst.toStdString();
-    string slowo;
-
-    for (char znak : tekstStd) {
+void getSongsFromText(string textEdit, vector<Song>& songList) {
+    string songName;
+    for (char znak : textEdit) {
         if (znak == '\n') {
-            if (!slowo.empty()) {
-                songList.push_back(Song(slowo, 0));
-                slowo.clear();
+            if (!songName.empty()) {
+                songList.push_back(Song(songName, 0));
+                songName.clear();
             }
         }
-        else {
-            slowo += znak;
-        }
+        else
+            songName += znak;
     }
-    if (!slowo.empty()) {
-        songList.push_back(Song(slowo, 0));
-    }
+    if (!songName.empty())
+        songList.push_back(Song(songName, 0));
+}
 
-    Album album((ui.albumTitleInput->text()).toStdString(), (ui.albumArtistInsput->text()).toStdString(), songList);
-    emit dataSubmitted(album);
-    this->close();
+void formDialog::addAlbumToTable() {
+    QMessageBox msgBox;
+    string albumTitle = ui.albumTitleInput->text().toStdString();
+    string albumArtist = ui.albumArtistInsput->text().toStdString();
+    string textEdit = ui.textEdit->toPlainText().toStdString();
+    vector<Song> songList;
+    getSongsFromText(textEdit, songList);
+
+    if (albumTitle.empty() || albumArtist.empty() || songList.empty()) {
+        msgBox.setText("Nalezy wypelnic wszystkie pola.");
+        msgBox.exec();
+    }
+    else {
+        Album album(albumTitle, albumArtist, songList);
+        emit dataSubmitted(album);
+        this->close();
+
+        msgBox.setText("Poprawnie dodano album.");
+        msgBox.exec();
+    }
 }
 
 void formDialog::loadDataFromFile()
 {
+    QMessageBox msgBox;
+
     QString filePath = QFileDialog::getOpenFileName(this, tr("Wybierz plik do wczytania"), "", tr("Pliki tekstowe (*.txt)"));
     if (filePath.isEmpty()) {
-        qDebug() << "Anulowano wybór pliku.";
+        msgBox.setText("Anulowano wybor pliku.");
+        msgBox.exec();
         return;
     }
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Nie mo¿na otworzyæ pliku.";
+        msgBox.setText("Nie mo¿na otworzyæ pliku.");
+        msgBox.exec();
         return;
     }
     QTextStream in(&file);
@@ -59,7 +75,7 @@ void formDialog::loadDataFromFile()
         QString line = in.readLine();
         ui.textEdit->append(line);
     }
-    file.close();
+    file.close(); 
 }
 
 
