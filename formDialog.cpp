@@ -17,17 +17,19 @@ formDialog::~formDialog()
 {}
 
 void formDialog::addAlbumToTable() {
-    vector<string> hehe;
+    vector<string> songList;
 
     QString tekst = ui.textEdit->toPlainText();
     string tekstStd = tekst.toStdString();
     string slowo;
+    int numberOfTitles = 0;
 
     for (char znak : tekstStd) {
         if (znak == '\n') {
             if (!slowo.empty()) {
-                hehe.push_back(slowo);
+                songList.push_back(slowo);
                 slowo.clear();
+                numberOfTitles++;
             }
         }
         else {
@@ -35,10 +37,11 @@ void formDialog::addAlbumToTable() {
         }
     }
     if (!slowo.empty()) {
-        hehe.push_back(slowo);
+        songList.push_back(slowo);
+        numberOfTitles++;
     }
 
-    Album album((ui.albumTitleInput->text()).toStdString(), (ui.albumArtistInsput->text()).toStdString(), ui.numberOfTitlesInput->value(), hehe);
+    Album album((ui.albumTitleInput->text()).toStdString(), (ui.albumArtistInsput->text()).toStdString(), numberOfTitles, songList);
     emit dataSubmitted(album);
     this->close();
 }
