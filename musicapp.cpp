@@ -3,12 +3,18 @@
 #include <QStringListModel>
 #include <QStandardItem>
 #include <Album.h>
-
+#include <QVBoxLayout>
+#include <QLabel>
 
 musicapp::musicapp(QWidget* parent)
     : QMainWindow(parent), dialog(new formDialog(this))
 {
     ui.setupUi(this);
+    this->setStyleSheet(
+        "background-image: url(essa.gif);"
+        "background-position: center;"
+    );
+
     connect(dialog, &formDialog::dataSubmitted, this, &musicapp::handleDialogData);
     connect(ui.albumListComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &musicapp::displayAlbumInfo);
     connect(ui.albumSongTable->model(), &QAbstractItemModel::dataChanged, this, &musicapp::updateAlbumProgressBar);
