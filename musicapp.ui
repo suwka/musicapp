@@ -67,6 +67,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="editAlbumButton">
+          <property name="text">
+           <string>Edytuj album</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="importAlbumButton">
           <property name="text">
            <string>Importuj albumy</string>
@@ -212,9 +219,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>editAlbumButton</sender>
+   <signal>clicked()</signal>
+   <receiver>musicappClass</receiver>
+   <slot>openAlbumEdit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>116</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addAlbumButtonClicked()</slot>
   <slot>openAlbumForm()</slot>
+  <slot>openAlbumEdit()</slot>
  </slots>
 </ui>

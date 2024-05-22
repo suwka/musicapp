@@ -17,6 +17,7 @@ public:
 	string getAlbumArtist() const;
 	int getAlbumStatus() const;
 	vector<Song>& getSongList();
+	const vector<Song>& getSongList() const;
 	void setAlbumStatus(int status);
 
 };

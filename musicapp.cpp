@@ -5,19 +5,18 @@
 #include <Album.h>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QMessageBox>
 
 musicapp::musicapp(QWidget* parent)
     : QMainWindow(parent), dialog(new formDialog(this))
 {
     ui.setupUi(this);
-    this->setStyleSheet(
-        "background-image: url(essa.gif);"
-        "background-position: center;"
-    );
 
     connect(dialog, &formDialog::dataSubmitted, this, &musicapp::handleDialogData);
     connect(ui.albumListComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &musicapp::displayAlbumInfo);
     connect(ui.albumSongTable->model(), &QAbstractItemModel::dataChanged, this, &musicapp::updateAlbumProgressBar);
+    connect(this, &musicapp::editAlbum, dialog, &formDialog::fillInputs);
+
     ui.albumSongTable->horizontalHeader()->setStretchLastSection(true);
     ui.albumSongTable->horizontalHeader()->sectionResizeMode(QHeaderView::Stretch);
 }
@@ -27,14 +26,36 @@ musicapp::~musicapp()
 
 void musicapp::handleDialogData(Album album)
 {
-    albumList.push_back(album);
-    ui.albumListComboBox->addItem(QString::fromStdString(album.getAlbumTitle()));
+    if (edit == true) {
+        albumList[currentIndex] = album;
+        ui.albumListComboBox->setItemText(currentIndex, QString::fromStdString(album.getAlbumTitle()));
+    }   
+    else {
+        albumList.push_back(album);
+        ui.albumListComboBox->addItem(QString::fromStdString(album.getAlbumTitle()));
+    }
+    
 }
 
 
 void musicapp::openAlbumForm()
 {
+    edit = 0;
     dialog->show();
+}
+
+void musicapp::openAlbumEdit()
+{
+    if (albumList.empty()) {
+        QMessageBox msgBox;
+        msgBox.setText("Brak albumu do edycji.");
+        msgBox.exec();
+    }
+    else {
+        edit = 1;
+        emit editAlbum(albumList[currentIndex]);
+        dialog->show();
+    }    
 }
 
 void musicapp::displayAlbumInfo(int index)
@@ -89,4 +110,6 @@ void musicapp::updateAlbumProgressBar()
     ui.albumProgressBar->setValue(progress);
     albumList[currentIndex].setAlbumStatus(ui.albumProgressBar->value());
 }
+
+
 

@@ -16,6 +16,9 @@ public:
 signals:
 	void dataSubmitted(const Album& album);
 
+public slots:
+	void fillInputs(const Album& album);
+
 private:
 	Ui::formDialogClass ui;
 	QList<Album> listView;

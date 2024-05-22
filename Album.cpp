@@ -22,6 +22,11 @@ vector<Song>& Album::getSongList(){
 	return this->songList;
 }
 
+const vector<Song>& Album::getSongList() const
+{
+	return this->songList;
+}
+
 void Album::setAlbumStatus(int status)
 {
 	this->albumStatus = status;

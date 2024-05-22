@@ -32,10 +32,20 @@ void getSongsFromText(string textEdit, vector<Song>& songList) {
         songList.push_back(Song(songName, 0));
 }
 
+void formDialog::fillInputs(const Album& album) {
+    ui.albumArtistInput->setText(QString::fromStdString(album.getAlbumArtist()));
+    ui.albumTitleInput->setText(QString::fromStdString(album.getAlbumTitle()));
+    const vector<Song>& songList = album.getSongList();
+
+    for (const Song& song : songList) {
+        ui.textEdit->append(QString::fromStdString(song.getSongTitle()));
+    }
+}
+
 void formDialog::addAlbumToTable() {
     QMessageBox msgBox;
     string albumTitle = ui.albumTitleInput->text().toStdString();
-    string albumArtist = ui.albumArtistInsput->text().toStdString();
+    string albumArtist = ui.albumArtistInput->text().toStdString();
     string textEdit = ui.textEdit->toPlainText().toStdString();
     vector<Song> songList;
     getSongsFromText(textEdit, songList);
@@ -45,6 +55,10 @@ void formDialog::addAlbumToTable() {
         msgBox.exec();
     }
     else {
+        ui.albumTitleInput->clear();
+        ui.albumArtistInput->clear();
+        ui.textEdit->clear();
+
         Album album(albumTitle, albumArtist, songList);
         emit dataSubmitted(album);
         this->close();
@@ -52,6 +66,8 @@ void formDialog::addAlbumToTable() {
         msgBox.setText("Poprawnie dodano album.");
         msgBox.exec();
     }
+
+    
 }
 
 void formDialog::loadDataFromFile()
@@ -75,7 +91,5 @@ void formDialog::loadDataFromFile()
         QString line = in.readLine();
         ui.textEdit->append(line);
     }
-    file.close(); 
+    file.close();
 }
-
-

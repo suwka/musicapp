@@ -63,7 +63,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="albumArtistInsput">
+      <widget class="QLineEdit" name="albumArtistInput">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
