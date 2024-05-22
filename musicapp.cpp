@@ -29,6 +29,7 @@ void musicapp::handleDialogData(Album album)
     if (edit == true) {
         albumList[currentIndex] = album;
         ui.albumListComboBox->setItemText(currentIndex, QString::fromStdString(album.getAlbumTitle()));
+        displayAlbumInfo(currentIndex);
     }   
     else {
         albumList.push_back(album);
