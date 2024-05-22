@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>605</width>
     <height>500</height>
    </rect>
   </property>
@@ -74,13 +74,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="importAlbumButton">
-          <property name="text">
-           <string>Importuj albumy</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Orientation::Vertical</enum>
@@ -92,6 +85,20 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="importAlbumButton">
+          <property name="text">
+           <string>Importuj albumy</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="exportAlbumButton">
+          <property name="text">
+           <string>Eksportuj albumy</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -188,6 +195,13 @@
           <attribute name="horizontalHeaderMinimumSectionSize">
            <number>28</number>
           </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="meow">
+          <property name="text">
+           <string>meow</string>
+          </property>
          </widget>
         </item>
        </layout>

@@ -29,5 +29,8 @@ private slots:
     void displayAlbumInfo(int index);
     void updateAlbumProgressBar();
     void openAlbumEdit();
+    void exportAlbums();
+    void importAlbums();
+
 };
 

@@ -13,6 +13,11 @@ class Album
 
 public:
 	Album(string title, string artist, vector<Song> songs, int status = 0);
+
+	//ddo exportu :--)
+	Album(const string& title, const string& artist);
+	void addSong(const Song& song);
+
 	string getAlbumTitle() const;
 	string getAlbumArtist() const;
 	int getAlbumStatus() const;

@@ -33,5 +33,15 @@ void Album::setAlbumStatus(int status)
 }
 
 
+//export tutaj? :--)
+void Album::addSong(const Song& song) {
+	songList.push_back(song);
+}
+
+Album::Album(const string& title, const string& artist)
+	: albumTitle(title), albumArtist(artist) {
+}
+
+
 
 
