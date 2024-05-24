@@ -18,7 +18,7 @@ musicapp::musicapp(QWidget* parent)
     : QMainWindow(parent), dialog(new formDialog(this))
 {
     ui.setupUi(this);
-
+    
     connect(dialog, &formDialog::dataSubmitted, this, &musicapp::handleDialogData);
     connect(ui.albumListComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &musicapp::displayAlbumInfo);
     connect(ui.albumSongTable->model(), &QAbstractItemModel::dataChanged, this, &musicapp::updateAlbumProgressBar);
@@ -31,8 +31,6 @@ musicapp::musicapp(QWidget* parent)
     connect(ui.exportAlbumButton, &QPushButton::clicked, this, &musicapp::exportAlbums);
     //import button
     connect(ui.importAlbumButton, &QPushButton::clicked, this, &musicapp::importAlbums);
-
-
 }
 
 musicapp::~musicapp()
@@ -52,7 +50,6 @@ void musicapp::handleDialogData(Album album)
     
 }
 
-
 void musicapp::openAlbumForm()
 {
     edit = 0;
@@ -62,9 +59,7 @@ void musicapp::openAlbumForm()
 void musicapp::openAlbumEdit()
 {
     if (albumList.empty()) {
-        QMessageBox msgBox;
-        msgBox.setText("Brak albumu do edycji.");
-        msgBox.exec();
+        QMessageBox::warning(this, "Brak albumow", "Brak albumu do edytowania.");
     }
     else {
         edit = 1;
@@ -86,7 +81,7 @@ void musicapp::displayAlbumInfo(int index)
         ui.numberOfSongsLabel->setText(QString::number(numberOfTracks));
         ui.albumProgressBar->setValue(albumStatus);
 
-        QStandardItemModel* model = new QStandardItemModel(this);
+        model = new QStandardItemModel(this);
 
         for (const Song& song : songList) {
             QStandardItem* item = new QStandardItem(QString::fromStdString(song.getSongTitle()));
@@ -126,6 +121,34 @@ void musicapp::updateAlbumProgressBar()
     albumList[currentIndex].setAlbumStatus(ui.albumProgressBar->value());
 }
 
+void musicapp::removeAlbum()
+{
+    if (albumList.empty()) {
+        QMessageBox::warning(this, "Brak albumow", "Brak albumu do usuniecia.");
+    }
+    else {
+        vector<Album>::iterator it;
+        ui.albumListComboBox->removeItem(currentIndex);
+        if (albumList.size() == 1) {
+            albumList.clear();
+        }
+        else {
+            it = albumList.begin() + currentIndex;
+            albumList.erase(it);
+        }
+
+        if (albumList.empty()) {
+            ui.albumArtistLabel->clear();
+            ui.numberOfSongsLabel->clear();
+            ui.albumProgressBar->setValue(0);
+            model->clear();
+        }
+        else
+            displayAlbumInfo(currentIndex);
+
+        QMessageBox::information(this, "Usuniecie albumu", "Poprawnie usunieto album.");
+    }
+}
 
 
 void musicapp::exportAlbums()
@@ -169,8 +192,6 @@ void musicapp::exportAlbums()
 
     QMessageBox::information(this, "Eksport zakonczony", "Albumy zostaly pomyslnie wyeksportowane");
 }
-
-
 
 
 void musicapp::importAlbums()
@@ -228,5 +249,7 @@ void musicapp::importAlbums()
 
     QMessageBox::information(this, "Import zakonczony", "Albumy zostaly pomyslnie zaimportowane.");
 }
+
+
 
 

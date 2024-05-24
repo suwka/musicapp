@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QStandardItemModel>
 #include "ui_musicapp.h"
 #include "Album.h"
 #include "formDialog.h"
@@ -22,6 +23,8 @@ private:
     vector<Album> albumList;
     int currentIndex = 0;
     bool edit = 0;
+    QStandardItemModel* model;
+
 
 private slots:
     void openAlbumForm();
@@ -31,6 +34,7 @@ private slots:
     void openAlbumEdit();
     void exportAlbums();
     void importAlbums();
+    void removeAlbum();
 
 };
 

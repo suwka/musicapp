@@ -32,7 +32,19 @@ void getSongsFromText(string textEdit, vector<Song>& songList) {
         songList.push_back(Song(songName, 0));
 }
 
+void formDialog::closeEvent(QCloseEvent* event)
+{
+    clearInputs();
+}
+
+void formDialog::clearInputs() {
+    ui.albumArtistInput->clear();
+    ui.albumTitleInput->clear();
+    ui.textEdit->clear();
+}
+
 void formDialog::fillInputs(const Album& album) {
+    edit = 1;
     ui.albumArtistInput->setText(QString::fromStdString(album.getAlbumArtist()));
     ui.albumTitleInput->setText(QString::fromStdString(album.getAlbumTitle()));
     const vector<Song>& songList = album.getSongList();
@@ -40,6 +52,8 @@ void formDialog::fillInputs(const Album& album) {
     for (const Song& song : songList) {
         ui.textEdit->append(QString::fromStdString(song.getSongTitle()));
     }
+
+    ui.finalizeAddAlbumButton->setText("Edytuj");
 }
 
 void formDialog::addAlbumToTable() {
@@ -51,8 +65,7 @@ void formDialog::addAlbumToTable() {
     getSongsFromText(textEdit, songList);
 
     if (albumTitle.empty() || albumArtist.empty() || songList.empty()) {
-        msgBox.setText("Nalezy wypelnic wszystkie pola.");
-        msgBox.exec();
+        QMessageBox::warning(this, "Blad wczytywania", "Nalezy wypelnic wszystkie pola.");
     }
     else {
         ui.albumTitleInput->clear();
@@ -63,11 +76,17 @@ void formDialog::addAlbumToTable() {
         emit dataSubmitted(album);
         this->close();
 
-        msgBox.setText("Poprawnie dodano album.");
+        if (edit == 0)
+            msgBox.setText("Poprawnie dodano album.");
+        else {
+            msgBox.setText("Poprawnie edytowano album.");
+            edit = 0;
+            ui.finalizeAddAlbumButton->setText("Dodaj");
+        }
+            
+        
         msgBox.exec();
     }
-
-    
 }
 
 void formDialog::loadDataFromFile()

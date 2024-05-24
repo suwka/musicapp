@@ -19,9 +19,14 @@ signals:
 public slots:
 	void fillInputs(const Album& album);
 
+protected:
+	void closeEvent(QCloseEvent* event) override;
+
 private:
 	Ui::formDialogClass ui;
 	QList<Album> listView;
+	bool edit = 0;
+	void clearInputs();
 
 private slots:
 	void addAlbumToTable();
