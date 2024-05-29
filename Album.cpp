@@ -33,7 +33,6 @@ void Album::setAlbumStatus(int status)
 }
 
 
-//export tutaj? :--)
 void Album::addSong(const Song& song) {
 	songList.push_back(song);
 }
