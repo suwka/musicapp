@@ -14,7 +14,6 @@ class Album
 public:
 	Album(string title, string artist, vector<Song> songs, int status = 0);
 
-	//do eksportu
 	Album(const string& title, const string& artist);
 	void addSong(const Song& song);
 
