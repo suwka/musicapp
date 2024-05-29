@@ -124,7 +124,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <item>
     <widget class="QPushButton" name="finalizeAddAlbumButton">
      <property name="text">
-      <string>Dodaj</string>
+      <string>Zapisz</string>
      </property>
     </widget>
    </item>

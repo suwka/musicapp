@@ -2,7 +2,6 @@
 #include <formDialog.h>
 #include <QStringListModel>
 #include <QStandardItem>
-#include <Album.h>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
@@ -12,7 +11,6 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QDebug>
 
 musicapp::musicapp(QWidget* parent)
     : QMainWindow(parent), dialog(new formDialog(this))
@@ -27,9 +25,7 @@ musicapp::musicapp(QWidget* parent)
     ui.albumSongTable->horizontalHeader()->setStretchLastSection(true);
     ui.albumSongTable->horizontalHeader()->sectionResizeMode(QHeaderView::Stretch);
 
-    //export album button idk czy dziala
     connect(ui.exportAlbumButton, &QPushButton::clicked, this, &musicapp::exportAlbums);
-    //import button
     connect(ui.importAlbumButton, &QPushButton::clicked, this, &musicapp::importAlbums);
 }
 
@@ -127,12 +123,12 @@ void musicapp::removeAlbum()
         QMessageBox::warning(this, "Brak albumow", "Brak albumu do usuniecia.");
     }
     else {
-        vector<Album>::iterator it;
         ui.albumListComboBox->removeItem(currentIndex);
         if (albumList.size() == 1) {
             albumList.clear();
         }
         else {
+            vector<Album>::iterator it;
             it = albumList.begin() + currentIndex;
             albumList.erase(it);
         }
@@ -142,11 +138,12 @@ void musicapp::removeAlbum()
             ui.numberOfSongsLabel->clear();
             ui.albumProgressBar->setValue(0);
             model->clear();
+            currentIndex = -1;
         }
-        else
+        else {
             displayAlbumInfo(currentIndex);
-
-        QMessageBox::information(this, "Usuniecie albumu", "Poprawnie usunieto album.");
+        }
+        QMessageBox::warning(this, "Usunieto album", "Poprawne usuniecie albumu");
     }
 }
 
@@ -202,7 +199,7 @@ void musicapp::importAlbums()
 
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(this, "Blad", "Blad otwarcia pliku: " + file.errorString());
+        QMessageBox::warning(this, "Blad importu", "Blad otwarcia pliku: " + file.errorString());
         return;
     }
 
@@ -211,14 +208,14 @@ void musicapp::importAlbums()
 
     QJsonDocument doc = QJsonDocument::fromJson(data);
     if (doc.isNull() || !doc.isArray()) {
-        QMessageBox::warning(this, "Blad", "Niepoprawny format JSON.");
+        QMessageBox::warning(this, "Blad importu", "Niepoprawny format JSON.");
         return;
     }
 
     QJsonArray albumsArray = doc.array();
     for (const QJsonValue& albumValue : albumsArray) {
         if (!albumValue.isObject()) {
-            qDebug() << "Niepoprawny obiekt albumu w tablicy JSON.";
+            QMessageBox::warning(this, "Blad importu", "Album nie ma takiego pola");
             continue;
         }
 
@@ -231,7 +228,7 @@ void musicapp::importAlbums()
 
         for (const QJsonValue& songValue : songsArray) {
             if (!songValue.isObject()) {
-                qDebug() << "Niepoprawny obiekt piosenki w tablicy JSON.";
+                QMessageBox::warning(this, "Blad importu", "Piosenka nie ma takiego pola.");
                 continue;
             }
 
@@ -249,7 +246,3 @@ void musicapp::importAlbums()
 
     QMessageBox::information(this, "Import zakonczony", "Albumy zostaly pomyslnie zaimportowane.");
 }
-
-
-
-

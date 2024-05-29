@@ -24,7 +24,6 @@ protected:
 
 private:
 	Ui::formDialogClass ui;
-	QList<Album> listView;
 	bool edit = 0;
 	void clearInputs();
 

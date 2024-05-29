@@ -14,15 +14,15 @@ class Album
 public:
 	Album(string title, string artist, vector<Song> songs, int status = 0);
 
-	//ddo exportu :--)
+	//do eksportu
 	Album(const string& title, const string& artist);
 	void addSong(const Song& song);
 
 	string getAlbumTitle() const;
 	string getAlbumArtist() const;
 	int getAlbumStatus() const;
-	vector<Song>& getSongList();
 	const vector<Song>& getSongList() const;
+	vector<Song>& getSongList();
 	void setAlbumStatus(int status);
 
 };

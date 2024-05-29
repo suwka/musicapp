@@ -52,12 +52,9 @@ void formDialog::fillInputs(const Album& album) {
     for (const Song& song : songList) {
         ui.textEdit->append(QString::fromStdString(song.getSongTitle()));
     }
-
-    ui.finalizeAddAlbumButton->setText("Edytuj");
 }
 
 void formDialog::addAlbumToTable() {
-    QMessageBox msgBox;
     string albumTitle = ui.albumTitleInput->text().toStdString();
     string albumArtist = ui.albumArtistInput->text().toStdString();
     string textEdit = ui.textEdit->toPlainText().toStdString();
@@ -77,15 +74,11 @@ void formDialog::addAlbumToTable() {
         this->close();
 
         if (edit == 0)
-            msgBox.setText("Poprawnie dodano album.");
+            QMessageBox::information(this, "Dodanie albumu", "Poprawnie dodano album.");
         else {
-            msgBox.setText("Poprawnie edytowano album.");
+            QMessageBox::information(this, "Edycja albumu", "Poprawnie edytowano album.");
             edit = 0;
-            ui.finalizeAddAlbumButton->setText("Dodaj");
         }
-            
-        
-        msgBox.exec();
     }
 }
 
@@ -95,14 +88,12 @@ void formDialog::loadDataFromFile()
 
     QString filePath = QFileDialog::getOpenFileName(this, tr("Wybierz plik do wczytania"), "", tr("Pliki tekstowe (*.txt)"));
     if (filePath.isEmpty()) {
-        msgBox.setText("Anulowano wybor pliku.");
-        msgBox.exec();
+        QMessageBox::warning(this, "Blad pliku", "Anulowano wybor pliku.");
         return;
     }
     QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        msgBox.setText("Nie mo¿na otworzyæ pliku.");
-        msgBox.exec();
+        QMessageBox::warning(this, "Blad pliku", "Nie mozna otworzyc pliku.");
         return;
     }
     QTextStream in(&file);
