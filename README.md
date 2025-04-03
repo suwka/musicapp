@@ -1,5 +1,5 @@
 Opis:
-    MusicApp to aplikacja umożliwiająca tworzenie playlist, dodawanie muzyki ręcznie lub poprzez import z pliku oraz meow ocenianie utworów. Użytkownicy mogą oznaczać utwory jako przesłuchane i śledzić postęp za pomocą procentowego wskaźnika.
+    MusicApp to aplikacja umożliwiająca tworzenie playlist, dodawanie muzyki ręcznie lub poprzez import z pliku oraz ocenianie utworów. Użytkownicy mogą oznaczać utwory jako przesłuchane i śledzić postęp za pomocą procentowego wskaźnika.
 
 Funkcje
     Dodawanie i zarządzanie playlistami.
